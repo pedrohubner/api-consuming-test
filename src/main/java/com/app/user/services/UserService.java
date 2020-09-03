@@ -1,17 +1,21 @@
 package com.app.user.services;
 
+import com.app.config.ApplicationPropertiesLoader;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.DefaultUriBuilderFactory;
 
 @Service
 @AllArgsConstructor
 public class UserService {
 
+    private final RestTemplate restTemplate;
+
+    private final ApplicationPropertiesLoader loader;
+
     public String getGitHubUserWithUsernameInUrl(String userName) {
-        RestTemplate restTemplate = new RestTemplate();
-        String url = "https://api.github.com/users/";
-        String newUrl = url.concat(userName);
-        return restTemplate.getForObject(newUrl, String.class);
+        restTemplate.setUriTemplateHandler(new DefaultUriBuilderFactory(loader.getUrl()));
+        return restTemplate.getForObject("/users/{userName}", String.class, userName);
     }
 }
