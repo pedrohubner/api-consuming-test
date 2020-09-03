@@ -16,6 +16,6 @@ public class UserController {
 
     @GetMapping(value = "/{userName}")
     public String findProductByUserName(@PathVariable String userName) {
-        return appFacade.getGitHubUserWithUsernameInUrl(userName);
+        return appFacade.getGitHubUserByUsernameInUrl(userName);
     }
 }
