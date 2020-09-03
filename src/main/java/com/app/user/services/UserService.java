@@ -14,7 +14,7 @@ public class UserService {
 
     private final ApplicationPropertiesLoader loader;
 
-    public String getGitHubUserWithUsernameInUrl(String userName) {
+    public String getGitHubUserByUsernameInUrl(String userName) {
         restTemplate.setUriTemplateHandler(new DefaultUriBuilderFactory(loader.getUrl()));
         return restTemplate.getForObject("/users/{userName}", String.class, userName);
     }
