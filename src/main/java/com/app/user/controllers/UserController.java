@@ -1,6 +1,6 @@
 package com.app.user.controllers;
 
-import com.app.user.services.UserService;
+import com.app.facade.AppFacade;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/users")
 public class UserController {
 
-    private final UserService userService;
+    private final AppFacade appFacade;
 
     @GetMapping(value = "/{userName}")
     public String findProductByUserName(@PathVariable String userName) {
-        return userService.getGitHubUserWithUsernameInUrl(userName);
+        return appFacade.getGitHubUserWithUsernameInUrl(userName);
     }
 }
