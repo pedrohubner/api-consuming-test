@@ -10,7 +10,7 @@ public class AppFacade {
 
     private final UserService userService;
 
-    public String getGitHubUserWithUsernameInUrl(String userName) {
-        return userService.getGitHubUserWithUsernameInUrl(userName);
+    public String getGitHubUserByUsernameInUrl(String userName) {
+        return userService.getGitHubUserByUsernameInUrl(userName);
     }
 }
