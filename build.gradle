@@ -2,11 +2,22 @@ plugins {
 	id 'org.springframework.boot' version '2.3.3.RELEASE'
 	id 'io.spring.dependency-management' version '1.0.10.RELEASE'
 	id 'java'
+	id "org.sonarqube" version "3.0"
+	id 'info.solidsoft.pitest' version '1.5.1'
 }
 
 group = 'com.app'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
+
+sonarqube {
+	properties {
+		property "sonar.sonar_token", "3f6ee6448c2fe1565058cf121ee117da791b62f1"
+		property "sonar.projectKey", "apitest"
+		property "sonar.organization", "pedrohubner"
+		property "sonar.host.url", "https://sonarcloud.io"
+	}
+}
 
 configurations {
 	compileOnly {
