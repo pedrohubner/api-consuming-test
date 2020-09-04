@@ -15,7 +15,6 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import static org.mockito.Mockito.when;
 import static org.mockserver.integration.ClientAndServer.startClientAndServer;
-import static org.mockserver.model.HttpClassCallback.callback;
 import static org.mockserver.model.HttpForward.forward;
 import static org.mockserver.model.HttpRequest.request;
 import static org.mockserver.model.HttpResponse.response;
@@ -62,34 +61,15 @@ public class UserMockserverTest {
     public void should_Find_User_By_UserName_withForward() throws Exception {
         when(loader.getUrl()).thenReturn("http://localhost:".concat(mockServer.getPort().toString()));
 
-        System.out.println(mockServer.getPort());
-
         mockServer
                 .when(request()
                         .withMethod("GET")
                         .withPath("/users/pedrohubner")
                 )
                 .forward(forward()
-                        .withHost("https://api.github.com")
-                        .withPort(mockServer.getPort())
+                        .withHost("api.github.com")
+                        .withPort(443)
                         .withScheme(HttpForward.Scheme.HTTPS)
-                );
-
-        mockMvc.perform(get("/users/{userName}", "pedrohubner"))
-                .andExpect(status().isOk());
-    }
-
-    @Test
-    public void should_Find_User_By_UserName_inCallbackClass() throws Exception {
-        when(loader.getUrl()).thenReturn("http://localhost:".concat(mockServer.getPort().toString()));
-
-        mockServer
-                .when(request()
-                        .withMethod("GET")
-                        .withPath("/users/pedrohubner")
-                )
-                .respond(callback()
-                        .withCallbackClass(CallbackClass.class)
                 );
 
         mockMvc.perform(get("/users/{userName}", "pedrohubner"))
