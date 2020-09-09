@@ -4,6 +4,7 @@ plugins {
 	id 'java'
 	id "org.sonarqube" version "3.0"
 	id 'info.solidsoft.pitest' version '1.5.1'
+	id 'jacoco'
 }
 
 group = 'com.app'
@@ -12,10 +13,10 @@ sourceCompatibility = '11'
 
 sonarqube {
 	properties {
-		property "sonar.sonar_token", "3f6ee6448c2fe1565058cf121ee117da791b62f1"
 		property "sonar.projectKey", "apitest"
 		property "sonar.organization", "pedrohubner"
 		property "sonar.host.url", "https://sonarcloud.io"
+		property "sonar.coverage.jacoco.xmlReportPaths", "$buildDir/reports/jacoco/test/jacocoTestReport.xml"
 	}
 }
 
@@ -41,6 +42,15 @@ dependencies {
 	testImplementation('org.mock-server:mockserver-client-java:5.11.1')
 }
 
+jacocoTestReport {
+	dependsOn(test)
+	reports {
+		xml.enabled(true)
+		csv.enabled(false)
+	}
+}
+
 test {
 	useJUnitPlatform()
+	finalizedBy(jacocoTestReport)
 }
