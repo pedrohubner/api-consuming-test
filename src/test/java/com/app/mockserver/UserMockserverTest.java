@@ -38,7 +38,7 @@ public class UserMockserverTest {
     }
 
     @Test
-    public void should_Find_User_By_UserName() throws Exception {
+    public void shouldFindUserByUserName() throws Exception {
         when(loader.getUrl()).thenReturn("http://localhost:".concat(mockServer.getPort().toString()));
 
         mockServer
