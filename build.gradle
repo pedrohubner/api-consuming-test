@@ -50,6 +50,21 @@ jacocoTestReport {
 	}
 }
 
+jacocoTestCoverageVerification {
+	violationRules {
+		rule {
+			element('CLASS')
+			limit {
+				minimum = 0.3
+				value = 'COVEREDRATIO'
+				counter = 'LINE'
+			}
+		}
+	}
+}
+
+check.dependsOn jacocoTestCoverageVerification
+
 test {
 	useJUnitPlatform()
 	finalizedBy(jacocoTestReport)
